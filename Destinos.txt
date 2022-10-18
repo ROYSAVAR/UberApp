@@ -1,0 +1,4 @@
+--------------------------Available places to travel---------------------------
+
+1)-Colima   2)-Quintana Roo   3)-Guadalajara   4)-Zacatecas   5)-Monterrey
+6)-Chihuaua 7)-Veracruz       8)-CDMX          9)-Durango     10)-Sinaloa
