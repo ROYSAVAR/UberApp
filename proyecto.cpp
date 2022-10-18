@@ -16,6 +16,7 @@ int main()
     
     cout<<"Welcome!"<<endl;
     //coment prueba
+    //prueba 2
     int opcion;
     do
     {
