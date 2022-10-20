@@ -6,6 +6,7 @@
 #include<map>
 #include<set>
 #include<ctime>
+#include<thread>
 
 using namespace  std;
     
@@ -103,37 +104,6 @@ string date_hour()
 
   return final;
 }
-//para calificar conductores
-class Estrellas
-{
-    int n_estrellas;
-    string name;
-
-    public: 
-        Estrellas():n_estrellas(0),name("")
-        {
-
-        }
-        Estrellas(string num_estrellas, string name):n_estrellas(n_estrellas),name(name)  //con esto ya no es necesario hacer los gets 
-        {
-
-        }
-        string info() const
-        {
-          string aux;
-        //  cout<<"Write the number of stars that you give to the driver: "<<n_estrellas<<endl;
-         aux += name; 
-         aux += " -----> ";
-         aux += n_estrellas;
-         aux += " stars";
-         return aux; 
-
-        }
-        bool operator<(const Estrellas &other) const  //esto es para que jale sets y maps con objetos, ya que usa < para comparar
-        {
-            return name < other.name;
-        }
-};
 
 //clase vehiculo-----------
 class Vehiculo
@@ -206,14 +176,76 @@ string moto::mostrar()
 
 string nombre_conductor(int chofi)
 {
-  string driver_name;
-  if(chofi == 1){driver_name = "Ricardo Espinoza";}
-  if(chofi == 2){driver_name = "Ivan Galban";}
-  if(chofi == 3){driver_name = "Angel Alcantara";}
-  if(chofi == 4){driver_name = "Caleb Flores";}
-  if(chofi == 5){driver_name = "Maria Rodriguez";}
-  if(chofi == 6){driver_name = "Ana Martinez ";}
-  if(chofi == 7){driver_name = "Juan Hernandez";}
+                string driver_name;
+                if(chofi == 1){driver_name = "Ricardo Espinoza";}
+                if(chofi == 2){driver_name = "Ivan Galban";}
+                if(chofi == 3){driver_name = "Angel Alcantara";}
+                if(chofi == 4){driver_name = "Caleb Flores";}
+                if(chofi == 5){driver_name = "Maria Rodriguez";}
+                if(chofi == 6){driver_name = "Ana Martinez ";}
+                if(chofi == 7){driver_name = "Juan Hernandez";}
 
   return driver_name;
+}
+
+string nombre_vehiculo(int carro)
+{
+                string car;
+                if(carro == 1){car = "VolksWagen Sedan";}
+                if(carro == 2){car = "Nissan Sentra"; }
+                if(carro == 3){car = "VolksWagen Vento";}
+                if(carro == 4){car = "Nissan March"; }
+                if(carro == 5){car = "Nissan Frontier";}
+                if(carro == 6){car = "VolksWagen Chevy";}
+                if(carro == 7){car = "Lamborhini Veneno";}
+                if(carro == 8){car = "Camaro ZL1"; }
+                if(carro == 9){car = "Audi A200"; }
+  return car;
+}
+
+int vehiculo_precio(int carro)
+{
+                int precio_carro;
+                if(carro == 1){precio_carro = 1000;}
+                if(carro == 2){precio_carro = 1500;}
+                if(carro == 3){precio_carro = 1500;}
+                if(carro == 4){precio_carro = 1250;}
+                if(carro == 5){precio_carro = 1900;}
+                if(carro == 6){precio_carro = 1100;}
+                if(carro == 7){precio_carro = 3500;}
+                if(carro == 8){precio_carro = 4500;}
+                if(carro == 9){precio_carro = 4150;}
+  return precio_carro;
+}
+
+string nombre_destino(int dest)
+{
+  string destino;
+                if(dest == 1){destino = "Colima"; }
+                if(dest == 2){destino = "Quintana Roo"; }
+                if(dest == 3){destino = "Guadalajara"; }
+                if(dest == 4){destino = "Zacatecas";}
+                if(dest == 5){destino = "Monterrey"; }
+                if(dest == 6){destino = "Chihuahua"; }
+                if(dest == 7){destino = "Veracruz";  }
+                if(dest == 8){destino = "CDMX";  }
+                if(dest == 9){destino = "Durango";  }
+                if(dest ==10){destino = "Sinaloa"; }
+  return destino;
+}
+
+int destino_precio(int dest)
+{
+  int precio_destino;
+                if(dest == 1){precio_destino = 850;}
+                if(dest == 2){precio_destino = 1600;}
+                if(dest == 3){precio_destino = 450;}
+                if(dest == 4){precio_destino = 250;}
+                if(dest == 5){precio_destino = 650;}
+                if(dest == 6){precio_destino = 850;}
+                if(dest == 7){precio_destino = 1050;}
+                if(dest == 8){precio_destino = 900;}
+                if(dest == 9){precio_destino = 650;}
+                if(dest ==10){ precio_destino = 850;}
+  return precio_destino;
 }
