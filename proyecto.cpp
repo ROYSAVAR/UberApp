@@ -1,49 +1,13 @@
 #include"myLib.h"
 
-using namespace std;
-class Calificacion
-{
-    int n_estrellas;
-    string name;
-
-    public: 
-        Calificacion():n_estrellas(0),name("")
-        {
-
-        }
-        Calificacion(int n_estrellas, string name):n_estrellas(n_estrellas),name(name)  //con esto ya no es necesario hacer los gets 
-        {
-
-        }
-  
-        void print() const
-        {
-          
-            ofstream archivoEscr;
-            archivoEscr.open("calificaciones.txt", ios :: out | ios::app);
-            if(archivoEscr.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);}
-
-            archivoEscr<<"Name: "<<name<<"  ------------->  Number of stars: "<<n_estrellas<<endl;
-
-            archivoEscr.close();
-        }
-        bool operator<(const Calificacion &other) const  //esto es para que jale sets y maps con objetos, ya que usa < para comparar
-        {
-            return name < other.name;
-        }
-};
-
-
 string driver_name, car, destino; string text; int chofi, destin, carro; int precio_carro, precio_destino, precio_final;  //op 1 travel now
-int num;  vector<int> propas;  int suma_Propinas =0;  //op4 propinas
 set<Calificacion> calificacion; int stars=0; //op 4 calificar drivers
 string color, nombre; int llantas;  string marca; //op 6  suggestions
 
 int main()
 {
   login();
-    ofstream archivoEscr;
-    ifstream archivoLec;
+    ofstream archivoEscr; ifstream archivoLec;
     
     cout<<"Welcome!"<<endl;
     int opcion;
@@ -59,32 +23,23 @@ int main()
                 if(archivoEscr.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);}
 
                 //elegir destino 
-                cout<<"\nChoose the destination: "; 
-                archivoLec.open("Destinos.txt", ios::in);  //abrir archivo en modo lectura
-                if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Available destinations: \n\n";
-                while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl<<endl;}
-                archivoLec.close();
+                cout<<"\nChoose the destination: "<<endl; 
+                mostrarArchivo("Destinos.txt");
 
                 cin>>destin;
                 destino = nombre_destino(destin);
                 precio_destino = destino_precio(destin);
 
                 //elegir conductor
-                cout<<"\nChoose the driver: "; 
-                archivoLec.open("Conductores.txt", ios::in);  //abrir archivo en modo lectura
-                if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Available drivers: \n\n";
-                while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl<<endl;}
-                archivoLec.close();
+                cout<<"\nChoose the driver: "<<endl; 
+                mostrarArchivo("Conductores.txt");
 
                 cin>>chofi;
                 driver_name = nombre_conductor(chofi);
 
                 //elegir carro
-                cout<<"\nChoose the car : ";  
-                archivoLec.open("Carros.txt", ios::in);  //abrir archivo en modo lectura
-                if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Available cars: \n\n";
-                while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl<<endl;}
-                archivoLec.close();
+                cout<<"\nChoose the car : "<<endl;  
+                mostrarArchivo("Carros.txt");
 
                 cin>>carro;
                 car = nombre_vehiculo(carro);
@@ -95,56 +50,48 @@ int main()
                 archivoEscr<<date_hour()<<endl;
                 archivoEscr<<"Driver: "<<driver_name<<"    "<<"Car: "<<car<<"    "<<"Destination: "<<destino<<"    "<<"Total Price: "<<precio_final<<endl<<endl;
                 archivoEscr.close();
-                cout<<"Trip created, wait for your uber at the point where you are right now.\n\n";
+
+                //hilo  (tiempo en que el uber llegará) 
+                pthread_t my_thread1; int i;
+                pthread_create(&my_thread1,NULL,&worker,NULL ); //inicia hilo 
+                pthread_join(my_thread1,(void**)&i);
+              //  pthread_exit(NULL);  
+
+                cout<<"Your uber arrived, enjoy your trip.\n\n";
                 break;
         case 2:
-                archivoLec.open("viajes_realizados.txt", ios::in);  //abrir archivo en modo lectura
-                if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Previous trips: \n";
-                while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
-                archivoLec.close();
+                mostrarArchivo("viajes_realizados.txt");
           break;
         case 3: //reserve a future trip
-
-               
+              
                 cout<<"Booked trip, be aware of the date the uber will pick you up.\n\n";
-                
+
           break;
-        case 4: //leave xtra tips and calificate drivers
+        case 4: //calificate drivers
 
-                cout<<"Choose the driver you want to rate: "; 
-
-                archivoLec.open("Conductores.txt", ios::in);  //abrir archivo en modo lectura
-                if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Available drivers: \n\n";
-                while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl<<endl;}
-                archivoLec.close();
+                cout<<"Choose the driver you want to rate: "<<endl; 
+                mostrarArchivo("Conductores.txt");
 
                 cin>>chofi;
                 driver_name = nombre_conductor(chofi);
 
                 cout<<"Type the number of stars: (1-5): "; cin>>stars;
-                calificacion.insert(Calificacion(stars,driver_name));
+                calificacion.insert(Calificacion(stars,driver_name)); //crear set 
 
                 for(set<Calificacion>::iterator it = calificacion.begin(); it != calificacion.end(); it++)  //solo imprimir
                 {
                  it-> print();
                 }
-              
+    
           break;
 
         case 5: //show info drivers and cars 
-           archivoLec.open("Conductores.txt", ios::in);  //abrir archivo en modo lectura
-           if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Drivers: \n\n";
-           while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
-           archivoLec.close();
-
-           archivoLec.open("Carros.txt", ios::in);  //abrir archivo en modo lectura
-           if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"\nAvailable Cars: \n\n";
-           while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
-           archivoLec.close(); 
+                cout<<"Available drivers:"<<endl;          mostrarArchivo("Conductores.txt");
+                cout<<"\nAvailable vehicles:"<<endl;       mostrarArchivo("Carros.txt");
           break;
 
         case 6: //sugerir añadir nuevos vehiculos
-          cout<<"Propose to add new vehicles"<<endl; cout<<"If you want to suggest a car, press 1, if is a motorbike, press 2"<<endl;
+          cout<<"Propose to add new vehicles"<<endl; cout<<"If you want to suggest a car, press 1.\nIf you want to suggest a motorbike, press 2."<<endl;
           
           int n; cin>>n;   
           Vehiculo *vector[3];
@@ -176,10 +123,8 @@ int main()
           break; 
 
         case 7: //mostrar carros sugeridos
-          archivoLec.open("sugeridos.txt", ios::in);  //abrir archivo en modo lectura
-                if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} cout<<"Suggested cars: \n\n";
-                while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
-                archivoLec.close();
+               cout<<"Suggested vehicles:"<<endl;
+               mostrarArchivo("sugeridos.txt");
           break;
         case 8: //salir 
         cout<<"Closing App, Bye."<<endl;

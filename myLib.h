@@ -7,13 +7,14 @@
 #include<set>
 #include<ctime>
 #include<thread>
-
+#include<windows.h>
+#include<pthread.h>
 using namespace  std;
     
 void menu()
 {
     cout<<"\nChoose an option:\n";
-    cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Leave an extra tip to the drivers.\n5. Show drivers' information and cars information.\n6. Suggest adding new cars.\n7. Show suggested cars.\n8. Exit.\n\n ";
+    cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Calificate drivers.\n5. Show drivers' and cars information.\n6. Suggest adding new cars.\n7. Show suggested cars.\n8. Exit.\n\n ";
 }
 
 void login()
@@ -39,7 +40,6 @@ void login()
        cont++;
     } while (contraMetida!=contrasena || usuario != usuarioMetido);
 }
-
 
 //---------fecha y hora del sistema----------
 string date_hour()
@@ -156,8 +156,7 @@ class moto: public Vehiculo
     public:
         moto();
         moto(string,string,int);
-        string mostrar();
-        
+        string mostrar();      
 };
 
 moto::moto(){}
@@ -173,7 +172,6 @@ string moto::mostrar()
 }
 
 //elegir conductor
-
 string nombre_conductor(int chofi)
 {
                 string driver_name;
@@ -184,7 +182,6 @@ string nombre_conductor(int chofi)
                 if(chofi == 5){driver_name = "Maria Rodriguez";}
                 if(chofi == 6){driver_name = "Ana Martinez ";}
                 if(chofi == 7){driver_name = "Juan Hernandez";}
-
   return driver_name;
 }
 
@@ -248,4 +245,70 @@ int destino_precio(int dest)
                 if(dest == 9){precio_destino = 650;}
                 if(dest ==10){ precio_destino = 850;}
   return precio_destino;
+}
+ 
+class Calificacion //calificar conductores
+{
+    int n_estrellas;
+    string name;
+
+    public: 
+        Calificacion():n_estrellas(0),name("")  {}
+
+        Calificacion(int n_estrellas, string name):n_estrellas(n_estrellas),name(name)  //con esto ya no es necesario hacer los gets 
+        {
+
+        }
+  
+        void print() const
+        {
+            ofstream archivoEscr;
+            archivoEscr.open("calificaciones.txt", ios :: out | ios::app);
+            if(archivoEscr.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);}
+
+            archivoEscr<<"Name: "<<name<<"  ------------->  Number of stars: "<<n_estrellas<<endl;
+            archivoEscr.close();
+        }
+        bool operator<(const Calificacion &other) const  //esto es para que jale sets y maps con objetos, ya que usa < para comparar
+        {
+            return name < other.name;
+        }
+};
+
+void mostrarArchivo(string name) //mostrar archivos
+{
+  ifstream archivoLec;
+  string text;
+
+   archivoLec.open(name, ios::in);  //abrir archivo en modo lectura
+   if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} 
+   while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
+   archivoLec.close();
+}
+
+
+//hilos
+
+void *worker(void *arg)   //lo que va a hacer mi hilo
+{
+   int seg = 15;
+   //int min = 1;
+   //int hora = 0;
+
+  bool ciclo = true;
+
+  while (ciclo == true)
+  {
+    system("cls"); //limpiar consola
+    cout<<"Trip created, your uber will arrive in:    ";
+    cout<<seg<<endl;
+    Sleep(1000); //funcion para definir en cuanto tiempo quiero que se este actualizando el while en milisegundos (1000 seria 1 seg)
+    seg--;
+    if(seg == 0)
+    {
+      ciclo = false;
+    }
+
+  }
+    pthread_exit(NULL);
 }
