@@ -1,7 +1,8 @@
 #include"clases.h"
 #include"metodos.h"
 
-string driver_name, car, destino; string text; int chofi, destin, carro; int precio_carro, precio_destino, precio_final;    int aux=0;//op 1 travel now
+string driver_name, car, destino; string text; int chofi, destin, carro; int precio_carro, precio_destino, precio_final;    int aux=0; //op 1 travel now
+int day, month, year;  //op 3 future trip
 set<Calificacion> calificacion; int stars=0;  //op 4 calificar drivers
 string color, nombre; int llantas;  string marca; //op 6  suggestions
 
@@ -72,7 +73,7 @@ int main()
                 mostrarArchivo("viajes_realizados.txt");
         break;
         case 3: //reserve a future trip
-                /*system("cls");
+                system("cls");
                 archivoEscr.open("Futuros_viajes.txt", ios :: out | ios::app);
                 if(archivoEscr.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);}
 
@@ -99,15 +100,24 @@ int main()
                 car = nombre_vehiculo(carro);
                 precio_carro = vehiculo_precio(carro);
 
+                //elegir fecha
+
+                cout<<"\n Type the date : "<<endl<<endl; 
+                cout<<"\n Type the day : "; cin>>day; 
+                cout<<"\n Type the month : "; cin>>month;  
+                cout<<"\n Type the year : "; cin>>year; 
+
+                //Fecha fecha = Fecha(day,month,year);
+            
                 //guardar en futuros viajes 
                 precio_final = precio_carro + precio_destino;
-                archivoEscr<<date_hour()<<endl;
+                archivoEscr<<"Day the trip was booked: "<<date_hour()<<endl; //"         Day of the trip: "<<day<<"";
+                //archivoEscr<<"Remaining days: "<<diasRestantes(fecha)<<endl;
                 archivoEscr<<"Driver: "<<driver_name<<"    "<<"Car: "<<car<<"    "<<"Destination: "<<destino<<"    "<<"Total Price: "<<precio_final<<endl<<endl;
                 archivoEscr.close();
 
                 system("cls");
-
-                cout<<"Booked trip, be aware of the date the uber will pick you up.\n\n";*/
+                cout<<"Booked trip, be aware of the date the uber will pick you up.\n\n";
 
         break;
         case 4: //calificate drivers

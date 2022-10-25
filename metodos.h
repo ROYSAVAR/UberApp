@@ -46,29 +46,21 @@ string date_hour()
   string dia, num_dia, month, anio, hora,min;
   time_t now = time(0);
   tm *time = localtime(&now);
-   
+  string days[] = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};   
   vector<string> dia_semana;
-  dia_semana.push_back("Sunday");
-  dia_semana.push_back("Monday");
-  dia_semana.push_back("Tuesday");
-  dia_semana.push_back("Wednesday");
-  dia_semana.push_back("Thursday");
-  dia_semana.push_back("Friday");
-  dia_semana.push_back("Saturday");
+
+  for(int i=0; i<7; i++)
+  {
+    dia_semana.push_back(days[i]);
+  }
   
+  string months[] = {"January","February","March","April","May","Jun","July","Agust","September","October","November","December"};
   vector<string> mes;
-  mes.push_back("January");
-  mes.push_back("February");
-  mes.push_back("March");
-  mes.push_back("April");
-  mes.push_back("May");
-  mes.push_back("Jun");
-  mes.push_back("July");
-  mes.push_back("Agust");
-  mes.push_back("September");
-  mes.push_back("October");
-  mes.push_back("November");
-  mes.push_back("December");
+
+  for(int i=0; i<12; i++)
+  {
+    mes.push_back(months[i]);
+  }
 
   int year = 1900 + time -> tm_year;
  

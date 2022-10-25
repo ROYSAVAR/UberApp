@@ -76,8 +76,6 @@ string moto::mostrar()
   return aux;
 }
 
-//elegir conductor
-
  
 class Calificacion //calificar conductores
 {
@@ -102,4 +100,170 @@ class Calificacion //calificar conductores
             return n_estrellas < other.n_estrellas;
         }
 };
+/*
+class Fecha //clase fecha
+{
+    private:
+        int dia;
+        int mes;
+        int anio;
 
+    public:
+
+
+        Fecha();
+        Fecha(int,int,int);
+        int getDia();
+        int getMes();
+        int getAnio();
+        int getDias();
+        string getFecha();
+        void setDia(int);
+        void setMes(int);
+        void setAnio(int);
+        void setFecha(int,int,int);
+        void avanzarDia();
+        ~Fecha();
+
+        bool operator>(const Fecha & other){
+            bool res=false;
+            if(this->anio>other.anio){
+                res=true;
+                return res;
+            }
+            if(this->mes > other.mes  &&  this->anio > other.anio){
+                res=true;
+                return true;
+            }
+            if(this->dia > other.dia  &&  this->mes > other.mes &&  this->anio > other.anio){
+                res=true;
+                return res;
+            }
+            if(this->dia > other.dia  &&  this->mes <= other.mes &&  this->anio <= other.anio){
+                res=true;
+                return res;
+            }
+            return res;
+        }
+
+        bool operator<(const Fecha &other) const 
+        {
+             bool res=true;
+            if(this->anio>other.anio){
+                res=false;
+                return res;
+            }
+            if(this->mes > other.mes  &&  this->anio > other.anio){
+                res=false;
+                return true;
+            }
+            if(this->dia > other.dia  &&  this->mes > other.mes &&  this->anio > other.anio){
+                res=false;
+                return res;
+            }
+            if(this->dia > other.dia  &&  this->mes <= other.mes &&  this->anio <= other.anio){
+                res=false;
+                return res;
+            }
+            return res;
+        }
+};
+
+Fecha::Fecha(){}
+
+Fecha::Fecha(int dia,int mes,int anio){
+    this->dia=dia;
+    this->mes=mes;
+    this->anio=anio;
+}
+
+int Fecha::getDia(){
+    return dia;
+}
+
+int Fecha::getMes(){
+    return mes;
+}
+
+int Fecha::getAnio(){
+    return anio;
+}
+
+int Fecha::getDias(){
+    if(mes==1 || mes==3 || mes==5 || mes==7 || mes==8 || mes==10 || mes==12){
+        return 31;
+    }
+    else if(mes==2){
+            return 28;
+        }
+        else{
+            return 30;
+        }
+}
+
+string Fecha::getFecha(){
+    string cad;
+    cad=to_string(getDia())+("/")+to_string(getMes())+("/")+to_string(getAnio());
+    return cad;
+}
+
+void Fecha::setDia(int dia){
+    this->dia=dia;
+}
+
+void Fecha::setMes(int mes){
+    this->mes=mes;
+}
+
+void Fecha::setAnio(int anio){
+    this->anio=anio;
+}
+
+void Fecha::setFecha(int dia,int mes,int anio){
+    this->dia=dia;
+    this->mes=mes;
+    this->anio=anio;
+}
+
+void Fecha::avanzarDia(){
+    if(dia==getDias() && mes!=12){
+        mes++;
+        dia=1;
+    }
+    else if(dia==getDias() && mes==12){
+        mes=1;
+        dia=1;
+        anio++;
+    }
+    else{
+        dia++;
+    }
+}
+
+bool iguales(Fecha a,Fecha b){
+    if(a.getDia()==b.getDia() && a.getMes()==b.getMes() && a.getAnio()==b.getAnio()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+int diasRestantes(Fecha a)
+{
+    time_t now=time(0);
+    tm*tiempo=localtime(&now);
+    int diahoy=tiempo->tm_mday;
+    int meshoy=tiempo->tm_mon+1;
+    int aniohoy=(tiempo->tm_year-100)+2000;
+
+
+    Fecha hoy=Fecha(diahoy,meshoy,aniohoy);
+
+    int contador=0;
+    while(iguales(hoy,a)==false){
+        hoy.avanzarDia();
+        contador++;
+    }
+    //return to_string(contador);
+    return contador;
+}*/
