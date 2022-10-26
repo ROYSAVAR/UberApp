@@ -16,25 +16,37 @@ void menu()
     cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Show future trips.\n5. Calificate drivers.\n6. Show drivers' rates.\n7. Show drivers' and cars information.\n8. Suggest adding new cars.\n9. Show suggested cars.\n10. Exit.\n\n ";
 }
 
+void mostrarArchivo(string name) //mostrar archivos
+{
+  ifstream archivoLec;
+  string text;
+
+   archivoLec.open(name, ios::in);  //abrir archivo en modo lectura
+   if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} 
+   while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
+   archivoLec.close();
+}
 void login() //inicio de sesion
 {
   int cont = 0;
   string usuario = "Passenger1"; string contrasena = "password123"; string usuarioMetido, contraMetida;
-  cout<<"\n------------------Login---------------------------------------------------------------------"<<endl<<"Enter username and password"<<endl; 
-
+   
     do //LOGIN
     {
        cout<<"USSERNAME: "; cin>>usuarioMetido; cout<<"PASSWORD:  "; cin>>contraMetida; 
 
        if(cont == 3) //si se intenta mas de 4 veces terminar el programa 
        {
+        system("cls");
         cout<<"Too many trys, temporaly bloked."<<endl;
         exit(-1);  //salir de todo el programa
        } 
 
        if(contraMetida!=contrasena || usuario != usuarioMetido) // si ususario o contra estan mal, volver a intentar
        {
-       cout<<"Ussername or password are wrong, please try again."<<endl;
+        system("cls");
+        mostrarArchivo("LetrasUber.txt");
+        cout<<"Ussername or password are wrong, please try again."<<endl;
        }
        cont++;
     } while (contraMetida!=contrasena || usuario != usuarioMetido);
@@ -198,16 +210,7 @@ int destino_precio(int dest)
                 if(dest ==10){ precio_destino = 850;}
   return precio_destino;
 }
-void mostrarArchivo(string name) //mostrar archivos
-{
-  ifstream archivoLec;
-  string text;
 
-   archivoLec.open(name, ios::in);  //abrir archivo en modo lectura
-   if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} 
-   while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
-   archivoLec.close();
-}
 
 
 //hilos---------------------------------------------------------

@@ -8,6 +8,8 @@ string color, nombre; int llantas;  string marca; //op 6  suggestions
 
 int main()
 {
+    system("cls");
+    mostrarArchivo("LetrasUber.txt");
     login();
     ofstream archivoEscr; ifstream archivoLec;
     
