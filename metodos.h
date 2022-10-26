@@ -13,7 +13,7 @@ using namespace  std;
 void menu()
 {
     cout<<"\nChoose an option:\n";
-    cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Calificate drivers.\n5. Show drivers' rates.\n6. Show drivers' and cars information.\n7. Suggest adding new cars.\n8. Show suggested cars.\n9. Exit.\n\n ";
+    cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Show future trips.\n5. Calificate drivers.\n6. Show drivers' rates.\n7. Show drivers' and cars information.\n8. Suggest adding new cars.\n9. Show suggested cars.\n10. Exit.\n\n ";
 }
 
 void login() //inicio de sesion
@@ -40,8 +40,8 @@ void login() //inicio de sesion
     } while (contraMetida!=contrasena || usuario != usuarioMetido);
 }
 
-//---------fecha y hora del sistema----------
-string date_hour()
+
+string date_hour()//------fecha y hora actual del sistema ----------
 {
   string dia, num_dia, month, anio, hora,min;
   time_t now = time(0);
@@ -92,6 +92,34 @@ string date_hour()
   final += hora;
   final += ":"; 
   final += min;  
+
+  return final;
+}
+
+string date(Fecha fecha)  //recive una fecha y la imprime
+{
+  string dia, num_dia, month, anio;
+  
+  string months[] = {"January","February","March","April","May","Jun","July","Agust","September","October","November","December"};
+  vector<string> mes;
+
+  for(int i=0; i<12; i++)
+  {
+    mes.push_back(months[i]);
+  }
+
+  num_dia = to_string(fecha.getDia()); //convertir int a string
+  month = mes[fecha.getMes()-1];
+  anio = to_string(fecha.getAnio());
+  
+  string final;
+
+  final += num_dia;
+  final += " "; 
+  final += month;
+  final += " ";
+  final += anio; 
+  
 
   return final;
 }

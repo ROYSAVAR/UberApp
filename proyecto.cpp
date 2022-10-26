@@ -3,7 +3,7 @@
 
 string driver_name, car, destino; string text; int chofi, destin, carro; int precio_carro, precio_destino, precio_final;    int aux=0; //op 1 travel now
 int day, month, year;  //op 3 future trip
-set<Calificacion> calificacion; int stars=0;  //op 4 calificar drivers
+set<Calificacion> calificacion; int stars=0;  Fecha fecha; //op 4 calificar drivers
 string color, nombre; int llantas;  string marca; //op 6  suggestions
 
 int main()
@@ -102,25 +102,33 @@ int main()
 
                 //elegir fecha
 
-                cout<<"\n Type the date : "<<endl<<endl; 
-                cout<<"\n Type the day : "; cin>>day; 
-                cout<<"\n Type the month : "; cin>>month;  
-                cout<<"\n Type the year : "; cin>>year; 
+                cout<<"\nType the date of your trip (dd,m,yyyy)"<<endl<<endl; 
+                cout<<" Type the day : "; cin>>day; 
+                cout<<" Type the month : "; cin>>month;  
+                cout<<" Type the year : "; cin>>year; 
 
-                //Fecha fecha = Fecha(day,month,year);
+                fecha = Fecha(day,month,year);
             
                 //guardar en futuros viajes 
                 precio_final = precio_carro + precio_destino;
                 archivoEscr<<"Day the trip was booked: "<<date_hour()<<endl; //"         Day of the trip: "<<day<<"";
-                //archivoEscr<<"Remaining days: "<<diasRestantes(fecha)<<endl;
+                archivoEscr<<"Travel date:  "<<date(fecha)<<"             Remaining days: "<<diasRestantes(fecha)<<endl;
                 archivoEscr<<"Driver: "<<driver_name<<"    "<<"Car: "<<car<<"    "<<"Destination: "<<destino<<"    "<<"Total Price: "<<precio_final<<endl<<endl;
                 archivoEscr.close();
 
                 system("cls");
+
                 cout<<"Booked trip, be aware of the date the uber will pick you up.\n\n";
 
         break;
-        case 4: //calificate drivers
+        case 4:  //show future trips
+                system("cls");
+                cout<<"Future trips:"<<endl<<endl;
+                mostrarArchivo("Futuros_viajes.txt");
+
+        break;
+
+        case 5: //calificate drivers
                 
                 system("cls");
                 cout<<"Choose the driver you want to rate: "<<endl<<endl; 
@@ -129,9 +137,9 @@ int main()
                 cin>>chofi;
                 driver_name = nombre_conductor(chofi);
 
-                cout<<"Type the number of stars: (1-5): "; cin>>stars;
+                cout<<"Type the number of stars: (1-5): "; cin>>stars; system("cls");
                 calificacion.insert(Calificacion(stars,driver_name)); //crear set 
-
+                cout<<"qualified driver, thank you"<<endl;
                 for(set<Calificacion>::iterator it = calificacion.begin(); it != calificacion.end(); it++)  //solo imprimir
                 {
                  it-> print();
@@ -139,18 +147,18 @@ int main()
     
         break;
 
-        case 5: //show driver rates
+        case 6: //show driver rates
                 system("cls");
                 cout<<"Driver rates:"<<endl;     mostrarArchivo("calificaciones.txt");
         break;
 
-        case 6: //show info drivers and cars 
+        case 7: //show info drivers and cars 
                 system("cls");
                 cout<<"Available drivers:"<<endl;          mostrarArchivo("Conductores.txt");
                 cout<<"\nAvailable vehicles:"<<endl;       mostrarArchivo("Carros.txt");
         break;
 
-        case 7: //suggest add new vehicles
+        case 8: //suggest add new vehicles
                 system("cls");
                 cout<<"Propose to add new vehicles"<<endl; cout<<"If you want to suggest a car, press 1.\nIf you want to suggest a motorcycle, press 2."<<endl;
                 
@@ -164,14 +172,14 @@ int main()
                 {
                       case 1:
                         cout<<"Suggest the car"<<endl;
-                        cout<<"Type vehicle name: "; cin>>nombre;  cout<<"\nType vehicle brand: "; cin>>marca;   cout<<"\nType the color: "; cin>>color;
+                        cout<<"Type vehicle name: "; cin>>nombre;  cout<<"Type vehicle brand: "; cin>>marca;   cout<<"Type the color: "; cin>>color;
                         vector[0] = new automovil(nombre,marca,color);
                         archivoEscr<<"Vehicle information: (color, name, model): "<<vector[0]->mostrar(); archivoEscr<<endl;
                         system("cls");
                       break;
                       case 2:
                         cout<<"Suggest the motorcycle"<<endl<<endl;
-                        cout<<"Type vehicle name: "; cin>>nombre;  cout<<"\nType vehicle brand: "; cin>>marca;   cout<<"\nType the number of tires: "; cin>>llantas;
+                        cout<<"Type motorcycle name: "; cin>>nombre;  cout<<"Type motorcycle brand: "; cin>>marca;   cout<<"Type the number of tires: "; cin>>llantas;
                         vector[1] = new moto(nombre,marca,llantas);
                         archivoEscr<<"Vehicle information: (color, name, number of tires): "<<vector[1]->mostrar();  archivoEscr<<endl;
                         system("cls");
@@ -184,12 +192,12 @@ int main()
                       cout<<"Request made, thanks.\n";     
         break; 
 
-        case 8: //show suggested vehicles
+        case 9: //show suggested vehicles
                system("cls");
                cout<<"Suggested vehicles:"<<endl<<endl;
                mostrarArchivo("sugeridos.txt");
         break;
-        case 9: //exit 
+        case 10: //exit 
                 system("cls");
                 cout<<"Closing App, Bye."<<endl;
         break;          
@@ -198,7 +206,7 @@ int main()
                 cout<<"Please enter a correct option"<<endl;
         break;
         }
-    } while (opcion!=9);
+    } while (opcion!=10);
     
   return 0;
 }

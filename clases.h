@@ -8,6 +8,7 @@
 #include<ctime>
 #include<windows.h>
 #include<pthread.h>
+
 using namespace  std;
     
 //clase vehiculo-----------
@@ -100,8 +101,8 @@ class Calificacion //calificar conductores
             return n_estrellas < other.n_estrellas;
         }
 };
-/*
-class Fecha //clase fecha
+
+class Fecha
 {
     private:
         int dia;
@@ -248,8 +249,7 @@ bool iguales(Fecha a,Fecha b){
     }
 }
 
-int diasRestantes(Fecha a)
-{
+string diasRestantes(Fecha a){
     time_t now=time(0);
     tm*tiempo=localtime(&now);
     int diahoy=tiempo->tm_mday;
@@ -264,6 +264,7 @@ int diasRestantes(Fecha a)
         hoy.avanzarDia();
         contador++;
     }
-    //return to_string(contador);
-    return contador;
-}*/
+    return to_string(contador);
+}
+
+Fecha::~Fecha(){}
