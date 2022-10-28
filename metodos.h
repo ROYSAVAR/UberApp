@@ -13,7 +13,7 @@ using namespace  std;
 void menu()
 {
     cout<<"\nChoose an option:\n";
-    cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Show future trips.\n5. Calificate drivers.\n6. Show drivers' rates.\n7. Show drivers' and cars information.\n8. Suggest adding new cars.\n9. Show suggested cars.\n10. Exit.\n\n ";
+    cout<<"1. Travel now. \n2. Show previous trips.\n3. Reserve a future trip.\n4. Show future trips.\n5. Calificate drivers.\n6. Show drivers' rates.\n7. Show drivers' and cars information.\n8. Suggest adding new cars.\n9. Show suggested cars.\n10.Exit.\n\n ";
 }
 
 void mostrarArchivo(string name) //mostrar archivos
@@ -25,6 +25,27 @@ void mostrarArchivo(string name) //mostrar archivos
    if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} 
    while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
    archivoLec.close();
+}
+
+bool buscarEnArchivo(string cadena) //buscar archivos
+{
+  ifstream archivoLec;
+  string text;
+
+   archivoLec.open("calificaciones.txt", ios::in);  //abrir archivo en modo lectura
+   if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} 
+   while(!archivoLec.eof()) 
+   {
+    // getline(archivoLec,text);
+    archivoLec>>text;
+   }
+   if(text == cadena)
+   {
+    return true;
+    
+   }
+   archivoLec.close();
+   return false;
 }
 void login() //inicio de sesion
 {
@@ -149,6 +170,19 @@ string nombre_conductor(int chofi)
   return driver_name;
 }
 
+string puro_nombre_conductor(int chofi)
+{
+                string driver_name;
+                if(chofi == 1){driver_name = "Ricardo";}
+                if(chofi == 2){driver_name = "Ivan";}
+                if(chofi == 3){driver_name = "Angel";}
+                if(chofi == 4){driver_name = "Caleb";}
+                if(chofi == 5){driver_name = "Maria";}
+                if(chofi == 6){driver_name = "Ana";}
+                if(chofi == 7){driver_name = "Juan";}
+  return driver_name;
+}
+
 string nombre_vehiculo(int carro)
 {
                 string car;
@@ -236,22 +270,5 @@ void *worker(void *arg)
     pthread_exit(NULL);
 }
 
-//tiempo en el que el uber llega al destino
-void *tiempo_llegada(void *arg) 
-{
-  int seg = 100;
-  bool ciclo = true;
 
-  while (ciclo)
-  {
-    system("cls"); //limpiar consola
-    Sleep(1000); //funcion para definir en cuanto tiempo quiero que se este actualizando el while en milisegundos (1000 seria 1 seg)
-    seg--;
-    if(seg == 0)
-    {
-      ciclo = false;
-    }
-  }
-    pthread_exit(NULL);
-}
 

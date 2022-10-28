@@ -65,10 +65,6 @@ int main()
                 system("cls");
                 cout<<"Your uber arrived, enjoy your trip.\n\n";
 
-                
-                /*pthread_t my_thread2;
-                pthread_create(&my_thread2,NULL,&tiempo_llegada,NULL ); //inicia hilo de tiempo de llegada al destino
-                aux = 1;*/
                 break;
         case 2: //mostrar historial
                 system("cls");
@@ -138,14 +134,15 @@ int main()
 
                 cin>>chofi;
                 driver_name = nombre_conductor(chofi);
-
-                cout<<"Type the number of stars: (1-5): "; cin>>stars; system("cls");
-                calificacion.insert(Calificacion(stars,driver_name)); //crear set 
-                cout<<"qualified driver, thank you"<<endl;
-                for(set<Calificacion>::iterator it = calificacion.begin(); it != calificacion.end(); it++)  //solo imprimir
-                {
-                 it-> print();
-                }
+              //  if(buscarEnArchivo(driver_name) == false)
+                
+                        cout<<"Type the number of stars: (1-5): "; cin>>stars; system("cls");
+                        calificacion.insert(Calificacion(stars,driver_name)); //crear set 
+                        cout<<"Qualified driver, thank you."<<endl;
+                        for(set<Calificacion>::iterator it = calificacion.begin(); it != calificacion.end(); it++)  //solo imprimir
+                        {
+                        it-> print();
+                        }
     
         break;
 
@@ -201,7 +198,7 @@ int main()
         break;
         case 10: //exit 
                 system("cls");
-                cout<<"Closing App, Bye."<<endl;
+                mostrarArchivo("ByeMsj.txt");
         break;          
         default: 
                 system("cls");
