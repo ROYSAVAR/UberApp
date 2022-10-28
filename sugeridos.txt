@@ -1,2 +1,1 @@
 
-Vehicle information (color, name, model): versa nissan redVehicle information (color, name, model): altima nissan green
