@@ -26,27 +26,6 @@ void mostrarArchivo(string name) //mostrar archivos
    while(!archivoLec.eof()) { getline(archivoLec,text);  cout<<text<<endl;}
    archivoLec.close();
 }
-
-bool buscarEnArchivo(string cadena) //buscar archivos
-{
-  ifstream archivoLec;
-  string text;
-
-   archivoLec.open("calificaciones.txt", ios::in);  //abrir archivo en modo lectura
-   if(archivoLec.fail()){cout<<"El archivo no se puede abrir"<<endl; exit(1);} 
-   while(!archivoLec.eof()) 
-   {
-    // getline(archivoLec,text);
-    archivoLec>>text;
-   }
-   if(text == cadena)
-   {
-    return true;
-    
-   }
-   archivoLec.close();
-   return false;
-}
 void login() //inicio de sesion
 {
   int cont = 0;
@@ -73,90 +52,6 @@ void login() //inicio de sesion
     } while (contraMetida!=contrasena || usuario != usuarioMetido);
 }
 
-
-string date_hour()//------fecha y hora actual del sistema ----------
-{
-  string dia, num_dia, month, anio, hora,min;
-  time_t now = time(0);
-  tm *time = localtime(&now);
-  string days[] = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};   
-  vector<string> dia_semana;
-
-  for(int i=0; i<7; i++)
-  {
-    dia_semana.push_back(days[i]);
-  }
-  
-  string months[] = {"January","February","March","April","May","Jun","July","Agust","September","October","November","December"};
-  vector<string> mes;
-
-  for(int i=0; i<12; i++)
-  {
-    mes.push_back(months[i]);
-  }
-
-  int year = 1900 + time -> tm_year;
- 
-  dia = dia_semana[time->tm_wday];
-  num_dia = to_string(time->tm_mday); //convertir int a string
-  month = mes[time->tm_mon];
-  anio = to_string(year);
-  hora = to_string(time->tm_hour);
-  if(time->tm_min < 10)
-  {
-    string aux = to_string(time->tm_min) ;
-    min += "0";
-    min += aux;
-  }
-  else
-  {
-     min = to_string(time->tm_min) ;
-  }
-
-  string final;
-  final += dia; 
-  final += " ";
-  final += num_dia;
-  final += " "; 
-  final += month;
-  final += " ";
-  final += anio; 
-  final += "      Time:  ";     
-  final += hora;
-  final += ":"; 
-  final += min;  
-
-  return final;
-}
-
-string date(Fecha fecha)  //recive una fecha y la imprime
-{
-  string dia, num_dia, month, anio;
-  
-  string months[] = {"January","February","March","April","May","Jun","July","Agust","September","October","November","December"};
-  vector<string> mes;
-
-  for(int i=0; i<12; i++)
-  {
-    mes.push_back(months[i]);
-  }
-
-  num_dia = to_string(fecha.getDia()); //convertir int a string
-  month = mes[fecha.getMes()-1];
-  anio = to_string(fecha.getAnio());
-  
-  string final;
-
-  final += num_dia;
-  final += " "; 
-  final += month;
-  final += " ";
-  final += anio; 
-  
-
-  return final;
-}
-
 string nombre_conductor(int chofi)
 {
                 string driver_name;
@@ -167,19 +62,6 @@ string nombre_conductor(int chofi)
                 if(chofi == 5){driver_name = "Maria Rodriguez";}
                 if(chofi == 6){driver_name = "Ana Martinez ";}
                 if(chofi == 7){driver_name = "Juan Hernandez";}
-  return driver_name;
-}
-
-string puro_nombre_conductor(int chofi)
-{
-                string driver_name;
-                if(chofi == 1){driver_name = "Ricardo";}
-                if(chofi == 2){driver_name = "Ivan";}
-                if(chofi == 3){driver_name = "Angel";}
-                if(chofi == 4){driver_name = "Caleb";}
-                if(chofi == 5){driver_name = "Maria";}
-                if(chofi == 6){driver_name = "Ana";}
-                if(chofi == 7){driver_name = "Juan";}
   return driver_name;
 }
 
@@ -245,16 +127,12 @@ int destino_precio(int dest)
   return precio_destino;
 }
 
-
-
-//hilos---------------------------------------------------------
-
+//hilos
 //tiempo en el que el uber llega a recogerme
 void *worker(void *arg) 
 {
   int seg = 20;
   bool ciclo = true;
-
   while (ciclo)
   {
     system("cls"); //limpiar consola
